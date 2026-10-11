@@ -9,7 +9,8 @@
     {"code": "CSE0208", "name": "Introduction to Data Warehousing and Data Mining"},
     {"code": "ENG1014", "name": "Enhancing English Communication Skills"},
     {"code": "MAT1107", "name": "Statistics for Data Science"},
-    {"code": "MAT2103", "name": "Stochastic Process"}
+    {"code": "MAT2101", "name": "Stochastic Process"},
+    {"code": "MAT2103", "name": "Optimization Methods for Data Science"}
   ],
   "terms": [
     {"season": "fall", "academic_year": "2025-26", "is_freshers": true,
