@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -10,6 +12,8 @@ from app.db.session import get_db
 from app.main import app
 from app.manage import sync_courses
 
+COURSES_FIXTURE = Path(__file__).parent / "fixtures" / "courses.json"
+
 
 @pytest.fixture
 def session_factory():
@@ -19,7 +23,7 @@ def session_factory():
     Base.metadata.create_all(engine)
     factory = sessionmaker(bind=engine, expire_on_commit=False)
     with factory() as db:
-        sync_courses(db)
+        sync_courses(db, COURSES_FIXTURE)
     return factory
 
 

@@ -13,6 +13,8 @@ from app.manage import (
 from app.models import Resource, Subject, Term
 from app.models.enums import ResourceType
 
+TEST_CODE = "TEST101"
+
 
 def test_filename_parsing():
     assert parse_filename("CAT1-2024") == ("CAT-1", 2024, "CAT-1 2024")
@@ -48,10 +50,24 @@ def test_sync_courses_unknown_subject_is_clear(session_factory, tmp_path):
             raise AssertionError("sync_courses accepted an unknown subject code")
 
 
+def test_real_courses_file_is_structurally_valid():
+    source = Path(__file__).parents[1] / "data" / "courses.json"
+    data = load_courses(source)
+    subject_codes = [subject.code for subject in data.subjects]
+    assert len(subject_codes) == len(set(subject_codes))
+    term_keys = [
+        (term.season, term.academic_year, term.is_freshers)
+        for term in data.terms
+    ]
+    assert len(term_keys) == len(set(term_keys))
+    known_codes = set(subject_codes)
+    assert all(code in known_codes for term in data.terms for code in term.subjects)
+
+
 def test_sync_files_is_idempotent_and_removes_missing(session_factory, tmp_path, monkeypatch):
     root = tmp_path / "storage"
-    pyq = root / "CSE0106" / "pyq"
-    notes = root / "CSE0106" / "notes"
+    pyq = root / TEST_CODE / "pyq"
+    notes = root / TEST_CODE / "notes"
     pyq.mkdir(parents=True)
     notes.mkdir()
     (pyq / "CAT1-2024.pdf").write_bytes(b"%PDF")
@@ -76,7 +92,7 @@ def test_sync_files_is_idempotent_and_removes_missing(session_factory, tmp_path,
 
 
 def test_sync_files_warns_for_unrecognised_pyq(session_factory, tmp_path, monkeypatch, capsys):
-    pyq = tmp_path / "CSE0106" / "pyq"
+    pyq = tmp_path / TEST_CODE / "pyq"
     pyq.mkdir(parents=True)
     (pyq / "midterm.pdf").write_bytes(b"%PDF")
     monkeypatch.setattr("app.manage.storage_root", lambda: tmp_path)
@@ -91,14 +107,14 @@ def test_sync_files_warns_for_unrecognised_pyq(session_factory, tmp_path, monkey
 def test_s3_sync_compares_pdf_content_and_force_uploads(
     session_factory, tmp_path, monkeypatch
 ):
-    pdf = tmp_path / "CSE0106" / "pyq" / "CAT-2025.pdf"
+    pdf = tmp_path / TEST_CODE / "pyq" / "CAT-2025.pdf"
     pdf.parent.mkdir(parents=True)
     pdf.write_bytes(b"ab")
 
     class FakeClient:
         def __init__(self):
             self.objects = {
-                "CSE0106/pyq/CAT-2025.pdf": {
+                f"{TEST_CODE}/pyq/CAT-2025.pdf": {
                     "ContentLength": 2,
                     "Metadata": {"sha256": file_sha256(pdf)},
                 }
@@ -135,14 +151,17 @@ def test_s3_sync_compares_pdf_content_and_force_uploads(
         same = sync_files(db)
         assert same["unchanged"] == 1
         assert same["uploaded"] == 0
-        fake.objects["CSE0106/pyq/CAT-2025.pdf"]["Metadata"] = {}
+        fake.objects[f"{TEST_CODE}/pyq/CAT-2025.pdf"]["Metadata"] = {}
         missing_metadata = sync_files(db)
         assert missing_metadata["uploaded_changed"] == 1
         pdf.write_bytes(b"cd")
         changed = sync_files(db)
         assert changed["uploaded_new"] == 0
         assert changed["uploaded_changed"] == 1
-        assert fake.objects["CSE0106/pyq/CAT-2025.pdf"]["Metadata"]["sha256"] == file_sha256(pdf)
+        assert (
+            fake.objects[f"{TEST_CODE}/pyq/CAT-2025.pdf"]["Metadata"]["sha256"]
+            == file_sha256(pdf)
+        )
         forced = sync_files(db, force=True)
         assert forced["uploaded"] == 1
         assert forced["uploaded_changed"] == 1
@@ -176,7 +195,11 @@ def test_prune_courses_removes_unlisted_subject_and_term(
             file_path="OLD999/pyq/CAT1-2020.pdf",
         ))
         db.commit()
-        prune_courses(db, load_courses(), yes=True)
+        prune_courses(
+            db,
+            load_courses(Path(__file__).parent / "fixtures" / "courses.json"),
+            yes=True,
+        )
         assert db.query(Subject).filter_by(code="OLD999").one_or_none() is None
         assert db.query(Term).filter_by(academic_year="2020-21").one_or_none() is None
         assert (
@@ -199,7 +222,10 @@ def test_prune_courses_requires_confirmation(session_factory, monkeypatch):
         db.commit()
         monkeypatch.setattr("builtins.input", lambda _: "no")
         try:
-            prune_courses(db, load_courses())
+            prune_courses(
+                db,
+                load_courses(Path(__file__).parent / "fixtures" / "courses.json"),
+            )
         except SystemExit as exc:
             assert str(exc) == "Aborted."
         else:
@@ -207,16 +233,16 @@ def test_prune_courses_requires_confirmation(session_factory, monkeypatch):
 
 
 def test_file_endpoint_headers_and_missing_file(client, session_factory, tmp_path, monkeypatch):
-    path = tmp_path / "CSE0106" / "pyq" / "CAT1-2024.pdf"
+    path = tmp_path / TEST_CODE / "pyq" / "CAT1-2024.pdf"
     path.parent.mkdir(parents=True)
     path.write_bytes(b"%PDF-1.4")
     with session_factory() as db:
-        subject = db.query(Subject).filter_by(code="CSE0106").one()
+        subject = db.query(Subject).filter_by(code=TEST_CODE).one()
         resource = Resource(
             subject_id=subject.id,
             type=ResourceType.pyq,
             title="CAT-1 2024",
-            file_path="CSE0106/pyq/CAT1-2024.pdf",
+            file_path=f"{TEST_CODE}/pyq/CAT1-2024.pdf",
             exam="CAT-1",
             year=2024,
         )
@@ -226,7 +252,7 @@ def test_file_endpoint_headers_and_missing_file(client, session_factory, tmp_pat
     monkeypatch.setattr(
         "app.api.routes.resources.resolve_path",
         lambda file_path: (
-            path if file_path == "CSE0106/pyq/CAT1-2024.pdf" else tmp_path / "missing"
+            path if file_path == "TEST101/pyq/CAT1-2024.pdf" else tmp_path / "missing"
         ),
     )
     inline = client.get(f"/api/v1/resources/{resource_id}/file")

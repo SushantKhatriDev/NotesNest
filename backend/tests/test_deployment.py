@@ -40,16 +40,16 @@ def test_s3_file_response_sets_disposition(monkeypatch):
     monkeypatch.setattr(storage, "get_settings", lambda: settings)
     monkeypatch.setattr(storage, "get_s3_client", lambda: FakeClient())
 
-    response = storage.get_file_response("CSE0106/pyq/CAT1-2024.pdf")
+    response = storage.get_file_response("TEST101/pyq/CAT1-2024.pdf")
     assert isinstance(response, RedirectResponse)
     assert response.status_code == 307
     assert response.headers["cache-control"] == "no-store"
-    assert calls[0]["params"]["Key"] == "CSE0106/pyq/CAT1-2024.pdf"
+    assert calls[0]["params"]["Key"] == "TEST101/pyq/CAT1-2024.pdf"
     assert calls[0]["params"]["ResponseContentDisposition"] == (
         'inline; filename="CAT1-2024.pdf"'
     )
 
-    storage.get_file_response("CSE0106/pyq/CAT1-2024.pdf", download=True)
+    storage.get_file_response("TEST101/pyq/CAT1-2024.pdf", download=True)
     assert calls[1]["params"]["ResponseContentDisposition"] == (
         'attachment; filename="CAT1-2024.pdf"'
     )
@@ -60,14 +60,14 @@ def test_s3_sync_files_uploads_and_removes(tmp_path, monkeypatch, session_factor
     from app.models import Resource, Subject
     from app.models.enums import ResourceType
 
-    pdf = tmp_path / "CSE0106" / "pyq" / "CAT1-2024.pdf"
+    pdf = tmp_path / "TEST101" / "pyq" / "CAT1-2024.pdf"
     pdf.parent.mkdir(parents=True)
     pdf.write_bytes(b"pdf")
 
     class FakeClient:
         def __init__(self):
             self.objects: dict[str, dict[str, object]] = {
-                "CSE0106/pyq/old.pdf": {"ContentLength": 10, "Metadata": {}}
+                "TEST101/pyq/old.pdf": {"ContentLength": 10, "Metadata": {}}
             }
             self.uploaded: list[str] = []
             self.deleted: list[str] = []
@@ -100,13 +100,13 @@ def test_s3_sync_files_uploads_and_removes(tmp_path, monkeypatch, session_factor
     )
 
     with session_factory() as db:
-        subject = db.query(Subject).filter_by(code="CSE0106").one()
+        subject = db.query(Subject).filter_by(code="TEST101").one()
         db.add(
             Resource(
                 subject_id=subject.id,
                 type=ResourceType.pyq,
                 title="Old",
-                file_path="CSE0106/pyq/old.pdf",
+                file_path="TEST101/pyq/old.pdf",
             )
         )
         db.commit()
@@ -114,8 +114,8 @@ def test_s3_sync_files_uploads_and_removes(tmp_path, monkeypatch, session_factor
 
     assert result["uploaded"] == 1
     assert result["removed"] == 1
-    assert fake.uploaded == ["CSE0106/pyq/CAT1-2024.pdf"]
-    assert fake.deleted == ["CSE0106/pyq/old.pdf"]
+    assert fake.uploaded == ["TEST101/pyq/CAT1-2024.pdf"]
+    assert fake.deleted == ["TEST101/pyq/old.pdf"]
 
 
 def test_api_cache_headers(client):

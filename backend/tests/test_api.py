@@ -7,8 +7,8 @@ def test_terms_exclude_summer_and_newest_first(client):
 
 def test_subjects_filtered_by_term(client):
     terms = client.get("/api/v1/terms").json()
-    current = next(t for t in terms if t["name"] == "Fall Semester 2025-26 Freshers")
-    assert len(client.get(f"/api/v1/subjects?term_id={current['id']}").json()) == 6
+    current = next(t for t in terms if t["is_freshers"])
+    assert len(client.get(f"/api/v1/subjects?term_id={current['id']}").json()) == 2
     assert client.get("/api/v1/subjects?term_id=9999").json() == []
 
 
@@ -23,15 +23,15 @@ def test_papers_search_and_years(client, session_factory):
     from app.models.enums import ResourceType
 
     with session_factory() as db:
-        subject = db.query(Subject).filter_by(code="MAT1101").one()
+        subject = db.query(Subject).filter_by(code="TEST101").one()
         db.add_all(
             [
                 Resource(subject_id=subject.id, type=ResourceType.pyq, title="CAT 2025",
-                         file_path="MAT1101/pyq/CAT-2025.pdf", exam="CAT", year=2025),
+                         file_path="TEST101/pyq/CAT-2025.pdf", exam="CAT", year=2025),
                 Resource(subject_id=subject.id, type=ResourceType.pyq, title="CAT-2 2025",
-                         file_path="MAT1101/pyq/CAT2-2025.pdf", exam="CAT-2", year=2025),
+                         file_path="TEST101/pyq/CAT2-2025.pdf", exam="CAT-2", year=2025),
                 Resource(subject_id=subject.id, type=ResourceType.note, title="Note",
-                         file_path="MAT1101/notes/note.pdf", year=2025),
+                         file_path="TEST101/notes/note.pdf", year=2025),
             ]
         )
         db.commit()

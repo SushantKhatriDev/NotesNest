@@ -1,0 +1,28 @@
+{
+  "subjects": [
+    {"code": "TEST101", "name": "Mathematics"},
+    {"code": "TEST102", "name": "Physics"},
+    {"code": "TEST103", "name": "Computer Science"},
+    {"code": "TEST104", "name": "Unattached Subject"}
+  ],
+  "terms": [
+    {
+      "season": "fall",
+      "academic_year": "2025-26",
+      "is_freshers": false,
+      "subjects": ["TEST101", "TEST102"]
+    },
+    {
+      "season": "winter",
+      "academic_year": "2025-26",
+      "is_freshers": false,
+      "subjects": ["TEST102", "TEST103"]
+    },
+    {
+      "season": "fall",
+      "academic_year": "2025-26",
+      "is_freshers": true,
+      "subjects": ["TEST101", "TEST103"]
+    }
+  ]
+}
