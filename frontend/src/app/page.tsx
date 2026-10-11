@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { ApiError, api } from "@/lib/api";
@@ -71,6 +72,12 @@ export default function Home() {
           </div>
         )}
       </div>
+      <Link
+        href="/papers"
+        className="mt-8 inline-flex min-h-11 items-center rounded-lg border border-brand/30 px-4 py-3 text-sm font-medium text-brand hover:bg-brand/5 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2"
+      >
+        Know your subject? Search papers by code or name →
+      </Link>
     </section>
   );
 }

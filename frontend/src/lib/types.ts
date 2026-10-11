@@ -23,6 +23,16 @@ export type Resource = {
   year: number | null;
 };
 
+export type Paper = {
+  id: number;
+  subject_id: number;
+  subject_code: string;
+  subject_name: string;
+  title: string;
+  exam: string | null;
+  year: number | null;
+};
+
 export type Faculty = {
   id: number;
   name: string;

@@ -5,10 +5,14 @@
     {"code": "MAT1101", "name": "Calculus"},
     {"code": "MAT1102", "name": "Probability and Distribution Theory"},
     {"code": "MAT1103", "name": "Excel and R for Data Analysis"},
-    {"code": "MAT1104", "name": "Discrete Mathematics and its Application"}
+    {"code": "MAT1104", "name": "Discrete Mathematics and its Application"},
+    {"code": "CSE0208", "name": "Introduction to Data Warehousing and Data Mining"},
+    {"code": "ENG1014", "name": "Enhancing English Communication Skills"},
+    {"code": "MAT1107", "name": "Statistics for Data Science"},
+    {"code": "MAT2103", "name": "Stochastic Process"}
   ],
   "terms": [
     {"season": "fall", "academic_year": "2025-26", "is_freshers": true,
-     "subjects": ["CSE0106", "ENG1003", "MAT1101", "MAT1102", "MAT1103", "MAT1104"]}
+     "subjects": ["CSE0106", "ENG1003", "MAT1101", "MAT1102", "MAT1103", "MAT1104", "CSE0208", "ENG1014", "MAT1107", "MAT2103"]}
   ]
 }

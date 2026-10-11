@@ -8,6 +8,7 @@ and read practical advice articles.
 
 - Semester and subject browsing
 - Client-side subject filtering by code or name
+- Search papers directly by subject code or name, with year filtering
 - PYQ and notes tabs with View and Download actions
 - Searchable, expandable faculty directory
 - Markdown advice articles with category filters

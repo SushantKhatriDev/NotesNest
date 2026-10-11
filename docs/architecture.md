@@ -3,7 +3,7 @@
 ## Overview
 
 NotesNest is a read-only study-material site with no authentication, accounts,
-uploads, or global search. Courses, faculty, and advice are self-contained
+uploads, or global search. Courses, paper search, faculty, and advice are self-contained
 sections. The owner edits content files and runs the sync commands; the app
 serves the resulting database records. Local development stays simple while
 the production database and PDF storage can be managed services.
@@ -24,7 +24,7 @@ flowchart LR
 
 | Group | Responsibility |
 | --- | --- |
-| `api` | FastAPI router and course, resource, faculty, and article endpoints |
+| `api` | FastAPI router and course, paper, resource, faculty, and article endpoints |
 | `core` | Settings, environment values, and S3 configuration validation |
 | `db` | SQLAlchemy declarative base and lazy database sessions |
 | `models` | Database entities and the term-subject association table |
@@ -53,6 +53,8 @@ flowchart LR
 | GET | `/api/v1/subjects/{id}` | — | One subject or 404 |
 | GET | `/api/v1/resources` | `subject_id`, `type` optional | Resources without paths |
 | GET | `/api/v1/resources/{id}/file` | `download=1` optional | Local PDF or B2 redirect |
+| GET | `/api/v1/papers` | `q`, `year`, `limit` | Searchable PYQs grouped by subject fields |
+| GET | `/api/v1/papers/years` | — | Distinct PYQ years, newest first |
 | GET | `/api/v1/faculty` | — | Faculty ordered by name |
 | GET | `/api/v1/articles` | `category` optional | Article summaries |
 | GET | `/api/v1/articles/{slug}` | — | Full article or 404 |
@@ -74,6 +76,7 @@ during that sync. Real faculty data and PDFs are gitignored.
 ## Frontend structure
 
 - `/` — semester selection
+- `/papers` — searchable CAT/FAT papers by subject code or name
 - `/terms/[termId]` — subjects and the client-side subject filter
 - `/subjects/[subjectId]` — PYQ and notes tabs
 - `/faculty` — searchable expandable faculty directory

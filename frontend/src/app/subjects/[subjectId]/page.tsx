@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { ResourceRow } from "@/components/ResourceRow";
 import { StateMessage } from "@/components/StateMessage";
@@ -17,8 +17,10 @@ function byYearDescending(left: Resource, right: Resource): number {
 }
 
 function SubjectPageContent({ params }: { params: { subjectId: string } }) {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const termParam = searchParams.get("term");
+  const fromPapers = searchParams.get("from") === "papers";
   const termId =
     termParam && /^\d+$/.test(termParam) && Number(termParam) > 0
       ? termParam
@@ -149,10 +151,17 @@ function SubjectPageContent({ params }: { params: { subjectId: string } }) {
   return (
     <section>
       <Link
-        href={termId ? `/terms/${termId}` : "/"}
+        href={termId ? `/terms/${termId}` : "/papers"}
+        onClick={(event) => {
+          if (!termId && fromPapers) {
+            event.preventDefault();
+            if (window.history.length > 1) router.back();
+            else router.push("/papers");
+          }
+        }}
         className="inline-flex min-h-11 items-center text-sm text-brand hover:underline focus:outline-none focus:ring-2 focus:ring-brand"
       >
-        {termId ? "← Back to subjects" : "← All semesters"}
+        {termId ? "← Back to subjects" : fromPapers ? "← Back to search results" : "← All semesters"}
       </Link>
       {error ? (
         <div className="mt-6">
