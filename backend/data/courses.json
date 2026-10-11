@@ -14,6 +14,8 @@
   ],
   "terms": [
     {"season": "fall", "academic_year": "2025-26", "is_freshers": true,
-     "subjects": ["CSE0106", "ENG1003", "MAT1101", "MAT1102", "MAT1103", "MAT1104", "CSE0208", "ENG1014", "MAT1107", "MAT2103"]}
+     "subjects": ["CSE0106", "ENG1003", "MAT1101", "MAT1102", "MAT1103", "MAT1104"]},
+    {"season": "fall", "academic_year": "2025-26", "is_freshers": false,
+     "subjects": ["CSE0208", "ENG1014", "MAT1107","MAT2101", "MAT2103"]}
   ]
 }
