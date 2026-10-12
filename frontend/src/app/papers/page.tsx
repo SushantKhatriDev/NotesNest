@@ -87,7 +87,13 @@ function PapersContent() {
 
   return (
     <section>
-      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">Paper finder</p>
+      <Link
+        href="/"
+        className="inline-flex min-h-11 items-center text-sm text-brand hover:underline focus:outline-none focus:ring-2 focus:ring-brand"
+      >
+        ← Back to home
+      </Link>
+      <p className="mt-8 text-sm font-semibold uppercase tracking-[0.18em] text-brand">Paper finder</p>
       <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">Search papers by subject</h1>
       <p className="mt-4 max-w-2xl text-base leading-7 text-ink/70">
         Know your subject code or name but not the semester? Find its CAT and FAT papers here.
