@@ -11,7 +11,7 @@
     {"code": "MAT1107", "name": "Statistics for Data Science"},
     {"code": "MAT2101", "name": "Stochastic Process"},
     {"code": "MAT2103", "name": "Optimization Methods for Data Science"},
-    {"code": "MAT1110", "name": "Introduction to Linear Algebra"}
+    {"code": "MAT1110", "name": "Introduction to Regression Analysis"}
   ],
   "terms": [
     {"season": "fall", "academic_year": "2025-26", "is_freshers": true,
