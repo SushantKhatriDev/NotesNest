@@ -10,12 +10,13 @@
     {"code": "ENG1014", "name": "Enhancing English Communication Skills"},
     {"code": "MAT1107", "name": "Statistics for Data Science"},
     {"code": "MAT2101", "name": "Stochastic Process"},
-    {"code": "MAT2103", "name": "Optimization Methods for Data Science"}
+    {"code": "MAT2103", "name": "Optimization Methods for Data Science"},
+    {"code": "MAT1110", "name": "Introduction to Linear Algebra"}
   ],
   "terms": [
     {"season": "fall", "academic_year": "2025-26", "is_freshers": true,
      "subjects": ["CSE0106", "ENG1003", "MAT1101", "MAT1102", "MAT1103", "MAT1104"]},
     {"season": "fall", "academic_year": "2025-26", "is_freshers": false,
-     "subjects": ["CSE0208", "ENG1014", "MAT1107","MAT2101", "MAT2103"]}
+     "subjects": ["CSE0208", "ENG1014", "MAT1107","MAT2101", "MAT2103","MAT1110"]}
   ]
 }
