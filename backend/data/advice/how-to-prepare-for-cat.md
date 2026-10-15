@@ -1,18 +1,15 @@
 ---
 title: How to prepare for CAT?
 category: Exams
-summary: A draft outline for planning CAT preparation.
-author: Final-year student
+summary: Focus on classes, study in the morning for afternoon exams, and use quizzes, NotebookLM and YouTube.
+author: Nandini Patnaik, 25BATH, CGPA - 9.59
 order: 1
 ---
-# Draft outline
+Focus mostly on your classes. Reference books are good for extra material, but they aren't necessary.
 
-TODO: owner to write practical, college-specific advice.
+If your exam is in the afternoon slot, morning study sessions are the most effective.
 
-## Understand the syllabus
+Do your quizzes well, and CAT will be easy.
 
-TODO: owner to write.
-
-## Make a revision plan
-
-TODO: owner to write.
+- **NotebookLM:** use it to practise MCQs.
+- **YouTube:** use it when you need any topic explained.
