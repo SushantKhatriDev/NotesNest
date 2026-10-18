@@ -4,6 +4,8 @@ NotesNest is a read-only study companion for BSc students: browse semesters
 and subjects, view or download PYQs and notes, find faculty contact details,
 and read practical advice articles.
 
+Live Demo: https://notes-nest-frontend-nu.vercel.app/
+
 ## Features
 
 - Semester and subject browsing
