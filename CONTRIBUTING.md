@@ -5,8 +5,7 @@ Thanks for helping out! NotesNest is a small, read-only app that helps students 
 ## Before you start
 
 1. Browse the [open issues](../../issues). Issues labelled `good first issue` are the best place to begin.
-2. **Comment on the issue to claim it** before you start. Wait for a reply so two people don't build the same thing.
-3. Got a new idea? Open an issue first and describe it. Please don't send a large PR out of nowhere.
+2. Got a new idea? Open an issue first and describe it. Please don't send a large PR out of nowhere.
 
 ## Project layout
 
