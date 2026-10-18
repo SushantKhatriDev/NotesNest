@@ -12,17 +12,19 @@
     {"code": "MAT2101", "name": "Stochastic Process"},
     {"code": "MAT2103", "name": "Optimization Methods for Data Science"},
     {"code": "MAT1110", "name": "Introduction to Regression Analysis"},
-    {"code": "MAT1110", "name": "Introduction to Regression Analysis"},
-    {"code": "MAT1110", "name": "Introduction to Regression Analysis"},
-    {"code": "MAT1110", "name": "Introduction to Regression Analysis"},
-    {"code": "MAT1110", "name": "Introduction to Regression Analysis"},
-    {"code": "MAT1110", "name": "Introduction to Regression Analysis"},
-    {"code": "MAT1110", "name": "Introduction to Regression Analysis"}
+    {"code": "CSE0108", "name": "Data Structures using Python"},
+    {"code": "MAT1105", "name": "Modern Algebra"},
+    {"code": "MAT1106", "name": "Linear Algebra for Data Science"},
+    {"code": "MAT1109", "name": "Introduction to Computational Biology"},
+    {"code": "MAT1111", "name": "Differential Equations and Transforms"},
+    {"code": "MGT2118", "name": "Fundamentals of Business Analytics"}
   ],
   "terms": [ 
     {"season": "fall", "academic_year": "2025-26", "is_freshers": true,
      "subjects": ["CSE0106", "ENG1003", "MAT1101", "MAT1102", "MAT1103", "MAT1104"]},
     {"season": "fall", "academic_year": "2025-26", "is_freshers": false,
-     "subjects": ["CSE0208", "ENG1014", "MAT1107","MAT2101", "MAT2103","MAT1110"]}
+     "subjects": ["CSE0208", "ENG1014", "MAT1107","MAT2101", "MAT2103","MAT1110"]},
+    {"season": "winter", "academic_year": "2025-26", "is_freshers": true,
+     "subjects": ["CSE0108", "MAT1105", "MAT1106", "MAT1109","MAT1111", "MGT2118"]}
   ]
 }
