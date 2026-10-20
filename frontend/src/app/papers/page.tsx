@@ -7,6 +7,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ResourceRow } from "@/components/ResourceRow";
 import { SearchInput } from "@/components/SearchInput";
 import { StateMessage } from "@/components/StateMessage";
+import { PaperRowSkeleton } from "@/components/ui/ListSkeletons";
+import { Skeleton } from "@/components/ui/Skeleton";
 import { ApiError, api } from "@/lib/api";
 import type { Paper } from "@/lib/types";
 
@@ -46,9 +48,9 @@ function PapersContent() {
     }
     const controller = new AbortController();
     request.current = controller;
+    setLoading(true);
+    setError(null);
     const timer = window.setTimeout(() => {
-      setLoading(true);
-      setError(null);
       api<Paper[]>(
         `/papers?q=${encodeURIComponent(trimmed)}${year ? `&year=${encodeURIComponent(year)}` : ""}`,
         { signal: controller.signal },
@@ -111,7 +113,17 @@ function PapersContent() {
       {query.trim().length < 2 ? (
         <p className="mt-8 text-sm text-ink/60">Type at least 2 characters of a subject code or name.</p>
       ) : loading ? (
-        <div className="mt-8"><StateMessage title="Loading papers…" /></div>
+        <div className="mt-8" aria-busy="true">
+          <span className="sr-only" role="status">Loading...</span>
+          <div className="space-y-8">
+            <div>
+              <SkeletonHeading />
+              <ul className="mt-3 space-y-3" aria-busy="true">
+                {Array.from({ length: 6 }, (_, index) => <PaperRowSkeleton key={index} />)}
+              </ul>
+            </div>
+          </div>
+        </div>
       ) : error ? (
         <div className="mt-8">
           <StateMessage
@@ -134,7 +146,7 @@ function PapersContent() {
                 <h2 id={`subject-${subjectId}`} className="text-xl font-semibold">{group.code} <span className="font-normal text-ink/70">— {group.name}</span></h2>
                 <Link href={`/subjects/${subjectId}?from=papers`} className="text-sm text-brand hover:underline">Open subject</Link>
               </div>
-              <div className="mt-3"><ul className="space-y-3">{group.papers.map((paper) => <ResourceRow key={paper.id} resource={{ ...paper, subject_id: paper.subject_id, type: "pyq" }} />)}</ul></div>
+              <div className="mt-3"><ul className="space-y-3" aria-busy="false">{group.papers.map((paper) => <ResourceRow key={paper.id} resource={{ ...paper, subject_id: paper.subject_id, type: "pyq" }} />)}</ul></div>
             </section>
           ))}
         </div>
@@ -144,5 +156,14 @@ function PapersContent() {
 }
 
 export default function PapersPage() {
-  return <Suspense fallback={<section className="mt-6"><StateMessage title="Loading papers…" /></section>}><PapersContent /></Suspense>;
+  return <Suspense fallback={<section className="mt-8"><span className="sr-only" role="status">Loading...</span><div className="space-y-8"><div><SkeletonHeading /><ul className="mt-3 space-y-3" aria-busy="true">{Array.from({ length: 6 }, (_, index) => <PaperRowSkeleton key={index} />)}</ul></div></div></section>}><PapersContent /></Suspense>;
+}
+
+function SkeletonHeading() {
+  return (
+    <div className="flex items-center justify-between gap-2">
+      <Skeleton className="h-7 w-56" />
+      <Skeleton className="h-5 w-24" />
+    </div>
+  );
 }

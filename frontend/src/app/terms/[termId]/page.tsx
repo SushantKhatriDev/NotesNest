@@ -6,6 +6,8 @@ import { useCallback, useEffect, useState } from "react";
 import { ApiError, api } from "@/lib/api";
 import { StateMessage } from "@/components/StateMessage";
 import { SearchInput } from "@/components/SearchInput";
+import { Skeleton } from "@/components/ui/Skeleton";
+import { SubjectCardSkeleton } from "@/components/ui/ListSkeletons";
 import type { Subject, Term } from "@/lib/types";
 
 export default function TermPage({ params }: { params: { termId: string } }) {
@@ -57,7 +59,14 @@ export default function TermPage({ params }: { params: { termId: string } }) {
           />
         </div>
       ) : !term || !subjects ? (
-        <div className="mt-6"><StateMessage title="Loading subjects…" /></div>
+        <div className="mt-8" aria-busy="true">
+          <span className="sr-only" role="status">Loading subjects...</span>
+          <Skeleton className="h-4 w-32" />
+          <Skeleton className="mt-2 h-9 w-64 max-w-full" />
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2" aria-busy="true">
+            {Array.from({ length: 6 }, (_, index) => <SubjectCardSkeleton key={index} />)}
+          </ul>
+        </div>
       ) : (
         <>
           <p className="mt-8 text-sm font-semibold uppercase tracking-[0.18em] text-brand">{term.season} semester</p>
@@ -94,7 +103,7 @@ export default function TermPage({ params }: { params: { termId: string } }) {
                         <StateMessage title={`No subjects match “${query.trim()}”.`} />
                       </div>
                     ) : (
-                      <ul className="mt-4 grid gap-4 sm:grid-cols-2">
+                      <ul className="mt-4 grid gap-4 sm:grid-cols-2" aria-busy="false">
                         {filtered.map((subject) => (
                           <li key={subject.id}>
                             <Link
