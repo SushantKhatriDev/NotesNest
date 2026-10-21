@@ -135,7 +135,6 @@ run `python -m app.manage --env-file .env.production check-storage`.
 - [x] Faculty directory
 - [x] Advice articles
 - [x] Subject filter
-- [ ] AI features (RAG over notes and PYQs)
 - [x] Deployment preparation for Vercel, Neon, and Backblaze B2
 
 See the [architecture guide](docs/architecture.md) for the verified system
