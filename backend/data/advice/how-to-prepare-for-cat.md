@@ -2,7 +2,7 @@
 title: How to prepare for CAT?
 category: Exams
 summary: Focus on classes, study in the morning for afternoon exams, and use quizzes, NotebookLM and YouTube.
-author: Nandini Patnaik, 25BATH, CGPA - 9.59
+author: Nandini Patnaik, 25BATCH, CGPA - 9.59
 order: 1
 ---
 Focus mostly on your classes. Reference books are good for extra material, but they aren't necessary.
