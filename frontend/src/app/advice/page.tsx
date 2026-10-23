@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { StateMessage } from "@/components/StateMessage";
+import { ArticleCardSkeleton } from "@/components/ui/ListSkeletons";
 import { ApiError, api } from "@/lib/api";
 import type { ArticleSummary } from "@/lib/types";
 
@@ -62,7 +63,12 @@ export default function AdvicePage() {
           />
         </div>
       ) : !articles ? (
-        <div className="mt-8"><StateMessage title="Loading articles…" /></div>
+        <div className="mt-8" aria-busy="true">
+          <span className="sr-only" role="status">Loading...</span>
+          <ul className="grid gap-4 sm:grid-cols-2" aria-busy="true">
+            {Array.from({ length: 6 }, (_, index) => <ArticleCardSkeleton key={index} />)}
+          </ul>
+        </div>
       ) : articles.length === 0 ? (
         <div className="mt-8">
           <StateMessage title="No articles yet." />
@@ -91,7 +97,7 @@ export default function AdvicePage() {
               <StateMessage title={`No articles in ${category} yet.`} />
             </div>
           ) : (
-            <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+            <ul className="mt-6 grid gap-4 sm:grid-cols-2" aria-busy="false">
               {visibleArticles.map((article) => (
                 <li key={article.id}>
                   <Link
