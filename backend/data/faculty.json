@@ -12,7 +12,7 @@
       "designation": "Assistant Professor Grade 2",
       "department": "School of Social Science and Humanities (VISH)",
       "email": "arpana.venu@vitap.ac.in",
-      "cabin": "AB3-303"  
+      "cabin": "AB2-307C"  
     },
     {
       "name": "Dr. Manoj Kumar Mishra",
@@ -61,7 +61,7 @@
       "designation": "Assistant Professor Senior Grade 2", 
       "department": "School of Advanced Science (SAS)",
       "email": "ravikumar.davala@vitap.ac.in",
-      "cabin": "AB2-202"
+      "cabin": "AB2-125H"
     },
     {
       "name": "Dr. Faizan Danish",
@@ -75,7 +75,7 @@
       "designation": "Assistant Professor Grade 2",
       "department": "School of Advanced Science (SAS)",
       "email": "nagamani.n@vitap.ac.in",
-      "cabin": "AB2-202"
+      "cabin": "AB2-325B"
     },
     {
       "name": "Dr. Shalini Thakur",
@@ -96,7 +96,7 @@
       "designation": "Assistant Professor Grade 2",
       "department": "School of Advanced Science (SAS)",
       "email": "sample.two@example.edu",
-      "cabin": "AB2-202"
+      "cabin": "AB1-424B"
     },
     {
       "name": "Dr. Dibyendu Sekhar Manda",
@@ -124,7 +124,7 @@
       "designation": "Assistant Professor Senior Grade 2",
       "department": "School of Business (VSB)",
       "email": "nareshbabu.m@vitap.ac.in",
-      "cabin": "AB2-202"
+      "cabin": "AB1-425B1"
     }
   ]
 }
