@@ -2,8 +2,136 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-brand: #2f5d50;
+  --color-brand-dark: #1f4036;
+  --color-paper: #fafaf7;
+  --color-ink: #1f2430;
+  --color-border: rgba(31, 36, 48, 0.1);
+  --radius-card: 0.875rem;
+  --space-page: clamp(1rem, 3vw, 2rem);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   @apply bg-paper text-ink antialiased;
+  background-color: var(--color-paper);
+}
+
+button,
+a,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a {
+  touch-action: manipulation;
+}
+
+.page-shell {
+  animation: page-enter 220ms ease-out both;
+}
+
+.nav-shell {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-paper) 88%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.hero-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.hero-panel::before {
+  position: absolute;
+  z-index: -1;
+  top: -8rem;
+  right: -5rem;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-brand) 10%, transparent);
+  content: "";
+  filter: blur(2px);
+}
+
+.card-interactive {
+  border-radius: var(--radius-card);
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.card-interactive:active {
+  transform: scale(0.985);
+}
+
+.focus-ring:focus-visible,
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-brand) 32%, transparent);
+  outline-offset: 2px;
+}
+
+.stagger-list > * {
+  animation: item-enter 220ms ease-out both;
+}
+
+.stagger-list > *:nth-child(2) { animation-delay: 35ms; }
+.stagger-list > *:nth-child(3) { animation-delay: 70ms; }
+.stagger-list > *:nth-child(4) { animation-delay: 105ms; }
+.stagger-list > *:nth-child(5) { animation-delay: 140ms; }
+.stagger-list > *:nth-child(6) { animation-delay: 175ms; }
+
+.segmented-control {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: white;
+}
+
+.segmented-control > button {
+  min-height: 2.75rem;
+  border-radius: 999px;
+  padding-inline: 1rem;
+  transition: transform 180ms ease, opacity 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.segmented-control > button:active {
+  transform: scale(0.96);
+}
+
+mark {
+  border-radius: 0.2rem;
+  background: color-mix(in srgb, var(--color-brand) 18%, transparent);
+  color: inherit;
+  padding-inline: 0.1em;
+}
+
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(0.35rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes item-enter {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .skeleton {
@@ -80,5 +208,13 @@ body {
   * {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+@media (hover: hover) {
+  .card-interactive:hover {
+    transform: translateY(-0.2rem);
+    border-color: color-mix(in srgb, var(--color-brand) 42%, transparent);
+    box-shadow: 0 0.75rem 1.75rem rgba(31, 36, 48, 0.08);
   }
 }

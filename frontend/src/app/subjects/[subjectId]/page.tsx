@@ -110,7 +110,7 @@ function SubjectPageContent({ params }: { params: { subjectId: string } }) {
   }, [groups, resources]);
 
   const renderRows = (items: Resource[], showExam = true) => (
-    <ul className="space-y-3">
+    <ul className="stagger-list space-y-3">
       {items.map((resource) => (
         <ResourceRow key={resource.id} resource={resource} showExam={showExam} />
       ))}

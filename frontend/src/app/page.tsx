@@ -26,14 +26,22 @@ export default function Home() {
   }, []);
 
   return (
-    <section className="py-4 sm:py-10">
+    <section className="hero-panel py-4 sm:py-10">
       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">Your study shelf</p>
-      <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">Find your subjects</h1>
+      <h1 className="mt-3 max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">Study smarter, one subject at a time.</h1>
       <p className="mt-4 max-w-xl text-base leading-7 text-ink/70">
         Previous-year papers and notes, organised by semester and subject.
       </p>
 
-      <div className="mt-10 max-w-md">
+      <div className="mt-8 flex flex-wrap gap-3">
+        <a href="#semester-picker" className="inline-flex min-h-11 items-center rounded-lg bg-brand px-4 py-3 text-sm font-semibold text-white transition hover:bg-brand-dark focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2">
+          Browse semesters
+        </a>
+        <Link href="/papers" className="inline-flex min-h-11 items-center rounded-lg border border-brand/30 px-4 py-3 text-sm font-semibold text-brand transition hover:bg-brand/5 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2">
+          Find papers
+        </Link>
+      </div>
+      <div id="semester-picker" className="mt-10 max-w-md scroll-mt-24">
         <label htmlFor="term" className="block text-sm font-medium">
           Choose a semester
         </label>
@@ -72,12 +80,19 @@ export default function Home() {
           </div>
         )}
       </div>
-      <Link
-        href="/papers"
-        className="mt-8 inline-flex min-h-11 items-center rounded-lg border border-brand/30 px-4 py-3 text-sm font-medium text-brand hover:bg-brand/5 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2"
-      >
-        Know your subject? Search papers by code or name →
-      </Link>
+      <div className="stagger-list mt-12 grid gap-4 sm:grid-cols-3">
+        {[
+          { href: "/papers", icon: "⌕", label: "Papers", text: "Search CAT and FAT papers." },
+          { href: "/faculty", icon: "◎", label: "Faculty", text: "Find teaching contacts." },
+          { href: "/advice", icon: "✦", label: "Advice", text: "Read practical student notes." },
+        ].map((item) => (
+          <Link key={item.href} href={item.href} className="card-interactive block border border-ink/10 bg-white p-5 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand/10 text-xl text-brand" aria-hidden="true">{item.icon}</span>
+            <h2 className="mt-4 font-semibold">{item.label}</h2>
+            <p className="mt-1 text-sm leading-6 text-ink/65">{item.text}</p>
+          </Link>
+        ))}
+      </div>
     </section>
   );
 }

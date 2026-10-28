@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Navigation } from "@/components/Navigation";
+import { BackToTop } from "@/components/BackToTop";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
@@ -14,10 +15,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="font-sans">
-        <header className="border-b border-ink/10 bg-paper">
+        <header className="nav-shell">
           <Navigation />
         </header>
-        <main className="mx-auto min-h-[calc(100vh-145px)] max-w-5xl px-4 py-8 sm:py-12">
+        <main className="page-shell mx-auto min-h-[calc(100vh-145px)] max-w-5xl px-4 py-8 sm:py-12">
           {children}
         </main>
         <footer className="border-t border-ink/10">
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             NotesNest · A simpler way to find your course materials.
           </div>
         </footer>
+        <BackToTop />
         <Analytics />
       </body>
     </html>

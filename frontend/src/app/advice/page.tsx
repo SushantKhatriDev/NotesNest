@@ -97,12 +97,12 @@ export default function AdvicePage() {
               <StateMessage title={`No articles in ${category} yet.`} />
             </div>
           ) : (
-            <ul className="mt-6 grid gap-4 sm:grid-cols-2" aria-busy="false">
+            <ul className="stagger-list mt-6 grid gap-4 sm:grid-cols-2" aria-busy="false">
               {visibleArticles.map((article) => (
                 <li key={article.id}>
                   <Link
                     href={`/advice/${article.slug}`}
-                    className="block h-full rounded-xl border border-ink/10 bg-white p-5 transition hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2"
+                    className="card-interactive block h-full border border-ink/10 bg-white p-5 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2"
                   >
                     <p className="text-xs font-semibold uppercase tracking-[0.15em] text-brand">
                       {article.category}
