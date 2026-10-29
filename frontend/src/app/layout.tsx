@@ -5,8 +5,39 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "NotesNest",
-  description: "PYQs, notes, faculty info and advice for BSc students.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ??
+      "https://notes-nest-frontend-nu.vercel.app",
+  ),
+  title: {
+    default: "NotesNest",
+    template: "%s | NotesNest",
+  },
+  description:
+    "Find previous-year papers, notes, faculty information, and study advice for BSc students.",
+  openGraph: {
+    type: "website",
+    siteName: "NotesNest",
+    title: "NotesNest",
+    description:
+      "Find previous-year papers, notes, faculty information, and study advice for BSc students.",
+    url: "/",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "NotesNest — course materials and study resources",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "NotesNest",
+    description:
+      "Find previous-year papers, notes, faculty information, and study advice for BSc students.",
+    images: ["/opengraph-image.png"],
+  },
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1 };
