@@ -95,7 +95,7 @@ export default function FacultyPage() {
               <StateMessage title={`No results for “${query}”.`} />
             </div>
           ) : (
-            <ul className="mt-4 space-y-3">
+            <ul className="stagger-list mt-4 space-y-3">
               {filteredFaculty.map((person) => (
                 <FacultyCard
                   key={person.id}

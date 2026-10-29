@@ -13,7 +13,7 @@ export function Tabs({ tabs, selected, onChange }: TabsProps) {
   };
 
   return (
-    <div role="tablist" aria-label="Resource type" className="flex gap-6 border-b border-ink/10">
+    <div role="tablist" aria-label="Resource type" className="segmented-control">
       {tabs.map((tab, index) => (
         <button
           key={tab.id}
@@ -34,10 +34,10 @@ export function Tabs({ tabs, selected, onChange }: TabsProps) {
               selectRelative(index - 1);
             }
           }}
-          className={`min-h-11 border-b-2 px-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 ${
+          className={`text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 ${
             selected === tab.id
-              ? "border-brand text-brand"
-              : "border-transparent text-ink/60 hover:text-ink"
+              ? "bg-brand text-white"
+              : "text-ink/60 hover:text-ink"
           }`}
         >
           {tab.label} <span className="ml-1 text-xs">({tab.count})</span>

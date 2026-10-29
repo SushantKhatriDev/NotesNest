@@ -11,6 +11,7 @@ import { PaperRowSkeleton } from "@/components/ui/ListSkeletons";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { ApiError, api } from "@/lib/api";
 import type { Paper } from "@/lib/types";
+import { Highlight } from "@/components/Highlight";
 
 function PapersContent() {
   const router = useRouter();
@@ -112,7 +113,7 @@ function PapersContent() {
       </div>
       {query.trim().length < 2 ? (
         <p className="mt-8 text-sm text-ink/60">Type at least 2 characters of a subject code or name.</p>
-      ) : loading ? (
+      ) : loading && !papers ? (
         <div className="mt-8" aria-busy="true">
           <span className="sr-only" role="status">Loading...</span>
           <div className="space-y-8">
@@ -138,12 +139,13 @@ function PapersContent() {
           <StateMessage title={`No papers found for “${query.trim()}”.`} description={year ? `No papers found for ${year}.` : undefined} />
         </div>
       ) : (
-        <div className="mt-8 space-y-8">
+        <div className="mt-8 space-y-8" aria-busy={loading}>
+          {loading && <p className="text-sm text-brand" role="status">Updating results…</p>}
           <p className="text-sm text-ink/60">{papers?.length ?? 0} {papers?.length === 1 ? "paper" : "papers"}</p>
           {groups.map(([subjectId, group]) => (
             <section key={subjectId} aria-labelledby={`subject-${subjectId}`}>
               <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h2 id={`subject-${subjectId}`} className="text-xl font-semibold">{group.code} <span className="font-normal text-ink/70">— {group.name}</span></h2>
+                <h2 id={`subject-${subjectId}`} className="text-xl font-semibold"><Highlight text={group.code} query={query} /> <span className="font-normal text-ink/70">— <Highlight text={group.name} query={query} /></span></h2>
                 <Link href={`/subjects/${subjectId}?from=papers`} className="text-sm text-brand hover:underline">Open subject</Link>
               </div>
               <div className="mt-3"><ul className="space-y-3" aria-busy="false">{group.papers.map((paper) => <ResourceRow key={paper.id} resource={{ ...paper, subject_id: paper.subject_id, type: "pyq" }} />)}</ul></div>

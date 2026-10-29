@@ -11,7 +11,7 @@ export function FacultyCard({ faculty, expanded, onToggle }: FacultyCardProps) {
   const panelId = `faculty-details-${faculty.id}`;
 
   return (
-    <li className="overflow-hidden rounded-xl border border-ink/10 bg-white">
+    <li className="card-interactive overflow-hidden border border-ink/10 bg-white">
       {hasDetails ? (
         <button
           type="button"
@@ -45,28 +45,21 @@ export function FacultyCard({ faculty, expanded, onToggle }: FacultyCardProps) {
           </div>
         </div>
       )}
-      {hasDetails && (
-        <div
-          id={panelId}
-          className={`grid transition-[grid-template-rows] duration-200 ease-out ${
-            expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-          }`}
-        >
-          <div className="min-h-0 overflow-hidden">
-            <div className="border-t border-ink/10 px-5 pb-5 pt-4 text-sm">
-              {faculty.designation && <p>{faculty.designation}</p>}
-              {faculty.email && (
-                <p className="mt-2">
-                  <a
-                    href={`mailto:${faculty.email}`}
-                    className="text-brand underline-offset-2 hover:underline focus:outline-none focus:ring-2 focus:ring-brand"
-                  >
-                    {faculty.email}
-                  </a>
-                </p>
-              )}
-              {faculty.cabin && <p className="mt-2 text-ink/70">Cabin: {faculty.cabin}</p>}
-            </div>
+      {hasDetails && expanded && (
+        <div id={panelId} className="animate-[item-enter_180ms_ease-out_both]">
+          <div className="border-t border-ink/10 px-5 pb-5 pt-4 text-sm">
+            {faculty.designation && <p>{faculty.designation}</p>}
+            {faculty.email && (
+              <p className="mt-2">
+                <a
+                  href={`mailto:${faculty.email}`}
+                  className="text-brand underline-offset-2 hover:underline focus:outline-none focus:ring-2 focus:ring-brand"
+                >
+                  {faculty.email}
+                </a>
+              </p>
+            )}
+            {faculty.cabin && <p className="mt-2 text-ink/70">Cabin: {faculty.cabin}</p>}
           </div>
         </div>
       )}

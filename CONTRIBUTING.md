@@ -1,6 +1,11 @@
 # Contributing to NotesNest
 
-Thanks for helping out! NotesNest is a small, read-only app that helps students find question papers, faculty info and advice. Contributions of all sizes are welcome.
+- Pick any open issue and comment “I’ll take this”. No approval needed.
+- Small fixes and typos: just open a PR.
+- Run it locally with the README steps. If ruff, pytest and the frontend lint pass, you’re good.
+- Keep PRs focused on one thing. Add a screenshot if you changed the UI.
+- No PR template, no formal rules. If something is unclear, ask in the issue.
+- Don’t commit secrets, .env.production, faculty.json or storage/.
 
 ## Before you start
 

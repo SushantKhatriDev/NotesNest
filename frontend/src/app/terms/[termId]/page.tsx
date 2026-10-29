@@ -9,6 +9,7 @@ import { SearchInput } from "@/components/SearchInput";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { SubjectCardSkeleton } from "@/components/ui/ListSkeletons";
 import type { Subject, Term } from "@/lib/types";
+import { Highlight } from "@/components/Highlight";
 
 export default function TermPage({ params }: { params: { termId: string } }) {
   const [term, setTerm] = useState<Term | null>(null);
@@ -103,15 +104,17 @@ export default function TermPage({ params }: { params: { termId: string } }) {
                         <StateMessage title={`No subjects match “${query.trim()}”.`} />
                       </div>
                     ) : (
-                      <ul className="mt-4 grid gap-4 sm:grid-cols-2" aria-busy="false">
+                      <ul className="stagger-list mt-4 grid gap-4 sm:grid-cols-2" aria-busy="false">
                         {filtered.map((subject) => (
                           <li key={subject.id}>
                             <Link
                               href={`/subjects/${subject.id}?term=${params.termId}`}
-                              className="block min-h-28 rounded-xl border border-ink/10 bg-white p-5 transition hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2"
+                              className="card-interactive block min-h-28 border border-ink/10 bg-white p-5 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2"
                             >
-                              <p className="text-sm text-ink/60">{subject.code}</p>
-                              <p className="mt-2 text-lg font-medium">{subject.name}</p>
+                              <span className="inline-flex rounded-full bg-brand/10 px-2.5 py-1 text-xs font-semibold tracking-wide text-brand">
+                                <Highlight text={subject.code} query={query} />
+                              </span>
+                              <p className="mt-3 text-lg font-medium"><Highlight text={subject.name} query={query} /></p>
                             </Link>
                           </li>
                         ))}
