@@ -32,10 +32,10 @@ export default function AdviceArticlePage({ params }: { params: { slug: string }
   return (
     <article>
       <Link
-        href="/advice"
+        href="/"
         className="inline-flex min-h-11 items-center text-sm text-brand hover:underline focus:outline-none focus:ring-2 focus:ring-brand"
       >
-        ← All advice
+        ← Back to home
       </Link>
       {error ? (
         <div className="mt-6">
