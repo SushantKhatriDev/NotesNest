@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { FacultyCard } from "@/components/FacultyCard";
@@ -52,6 +53,9 @@ export default function FacultyPage() {
 
   return (
     <section>
+      <Link href="/" className="inline-flex min-h-11 items-center text-sm text-brand hover:underline focus:outline-none focus:ring-2 focus:ring-brand">
+        ← Back to home
+      </Link>
       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">People</p>
       <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Faculty</h1>
       <p className="mt-3 max-w-xl text-ink/70">Find contact details for the people who teach your course.</p>
@@ -87,7 +91,7 @@ export default function FacultyPage() {
               placeholder="Search faculty"
             />
           </div>
-          <p className="mt-4 text-sm text-ink/60" aria-live="polite">
+          <p className="mt-4 text-sm text-ink/65" aria-live="polite">
             {filteredFaculty.length} faculty
           </p>
           {filteredFaculty.length === 0 ? (
