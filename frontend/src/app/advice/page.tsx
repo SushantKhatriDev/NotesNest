@@ -42,6 +42,9 @@ export default function AdvicePage() {
 
   return (
     <section>
+      <Link href="/" className="inline-flex min-h-11 items-center text-sm text-brand hover:underline focus:outline-none focus:ring-2 focus:ring-brand">
+        ← Back to home
+      </Link>
       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">Student notes</p>
       <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Advice</h1>
       <p className="mt-3 max-w-xl text-ink/70">
